@@ -15,7 +15,12 @@ export class Person {
     @Fields.string({ validate: Validators.required })
     company = '';
 
-    @Fields.integer()
+    @Fields.integer<Person>({
+        validate: person => {
+            if (person.age < 0)
+                throw 'invalid age';
+        }
+    })
     age = 0;
 
     @Fields.integer()
